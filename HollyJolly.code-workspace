@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"cortex-debug.openocdPath": "/usr/bin/openocd",
+		"files.associations": {
+			"stdlib.h": "c"
+		}
+	}
+}
