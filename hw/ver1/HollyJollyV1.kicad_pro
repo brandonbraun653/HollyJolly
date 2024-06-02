@@ -117,7 +117,7 @@
         "max_error": 0.005,
         "min_clearance": 0.0,
         "min_connection": 0.0,
-        "min_copper_edge_clearance": 0.5,
+        "min_copper_edge_clearance": 0.15,
         "min_hole_clearance": 0.25,
         "min_hole_to_hole": 0.25,
         "min_microvia_diameter": 0.2,
@@ -130,7 +130,7 @@
         "min_track_width": 0.0,
         "min_via_annular_width": 0.1,
         "min_via_diameter": 0.5,
-        "solder_mask_to_copper_clearance": 0.0,
+        "solder_mask_to_copper_clearance": 0.005,
         "use_height_for_length_calcs": true
       },
       "teardrop_options": [
@@ -696,6 +696,34 @@
     [
       "91e2d50f-0c8f-49c2-9e19-ef1bca8ee4a3",
       "LED24"
+    ],
+    [
+      "d364ac34-52c4-4bb0-adde-ad04782765c2",
+      "LED25"
+    ],
+    [
+      "6ded90b4-212e-4d0a-a90e-a6437c98ac16",
+      "LED26"
+    ],
+    [
+      "89056017-f0b8-4e87-95ed-7302a8f9b7e8",
+      "LED27"
+    ],
+    [
+      "c753f6d5-9705-4642-9d63-bf630175ea4f",
+      "LED28"
+    ],
+    [
+      "9d8652e3-c50c-4a5f-959c-df5f569bb10e",
+      "LED29"
+    ],
+    [
+      "ee049d6a-4db4-495f-a594-a39b090994a2",
+      "LED30"
+    ],
+    [
+      "5c62a205-40ae-4a81-abcf-f44141a71cfb",
+      "LED31"
     ]
   ],
   "text_variables": {}
