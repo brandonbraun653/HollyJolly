@@ -3457,6 +3457,12 @@
 		(uuid "e551538c-125e-4fda-b483-1ee9d9f5d944")
 	)
 	(junction
+		(at 205.74 81.28)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "e5788811-30b1-4921-8e83-c966b3fd7ec8")
+	)
+	(junction
 		(at 118.11 107.95)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -4050,6 +4056,16 @@
 	)
 	(wire
 		(pts
+			(xy 205.74 81.28) (xy 208.28 81.28)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "44ae33b6-38c2-4e07-873c-7d8dba0b1f4c")
+	)
+	(wire
+		(pts
 			(xy 220.98 107.95) (xy 222.25 107.95)
 		)
 		(stroke
@@ -4440,7 +4456,7 @@
 	)
 	(wire
 		(pts
-			(xy 198.12 81.28) (xy 208.28 81.28)
+			(xy 198.12 81.28) (xy 205.74 81.28)
 		)
 		(stroke
 			(width 0)
@@ -4697,6 +4713,16 @@
 			(type default)
 		)
 		(uuid "b191bdfb-faea-465e-b64c-a99c0d42224e")
+	)
+	(wire
+		(pts
+			(xy 205.74 73.66) (xy 205.74 81.28)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b232b5e3-77fa-4baf-85ee-44a808d117b5")
 	)
 	(wire
 		(pts
@@ -8092,6 +8118,72 @@
 			(project "HollyJollyV1"
 				(path "/6b41699c-714d-4006-8719-4b1ad5a2d228"
 					(reference "C5")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint_Flag")
+		(at 205.74 73.66 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "9770825a-68ee-407a-a8a0-c2b1e8438933")
+		(property "Reference" "TP3"
+			(at 215.9 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "LED_DATA_TP"
+			(at 215.9 69.342 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_1.0x1.0mm"
+			(at 210.82 73.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 210.82 73.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point (alternative flag-style design)"
+			(at 205.74 73.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "3372ff54-db5f-4551-a5a4-df2f5cd5ef4b")
+		)
+		(instances
+			(project "HollyJollyV1"
+				(path "/6b41699c-714d-4006-8719-4b1ad5a2d228"
+					(reference "TP3")
 					(unit 1)
 				)
 			)
