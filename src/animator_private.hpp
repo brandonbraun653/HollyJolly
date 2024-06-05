@@ -16,10 +16,78 @@
 Includes
 -----------------------------------------------------------------------------*/
 #include <cstdint>
+#include <cstring>
+#include "ws2812.hpp"
 
+
+/*-----------------------------------------------------------------------------
+Literals
+-----------------------------------------------------------------------------*/
+
+/**
+ * @brief Helper macro to declare a basic animation class conforming to the IAnimation interface
+ */
+#define DECLARE_ANIMATION_CLASS( name ) \
+  class name : public IAnimation \
+  { \
+  public: \
+    name(); \
+    ~name(); \
+    void initialize() final override; \
+    void process() final override; \
+    void stop() final override; \
+  }
 
 namespace Animator
 {
+  /*---------------------------------------------------------------------------
+  Enumerations
+  ---------------------------------------------------------------------------*/
+
+  enum AnimationIndex : uint8_t
+  {
+    IDLE,
+    FADE,
+    RAINBOW,
+    COUNT
+  };
+
+  /*---------------------------------------------------------------------------
+  Private Classes
+  ---------------------------------------------------------------------------*/
+
+  /**
+   * @brief Virtual interface to an animation object
+   *
+   * This class is used to define the interface for all animations that can be
+   * run on the Holly Jolly project.
+   */
+  class IAnimation
+  {
+  public:
+    virtual ~IAnimation() = default;
+
+    /**
+     * @brief Initialize the animation object.
+     * Create any resources that are needed for the animation to run.
+     */
+    virtual void initialize() = 0;
+
+    /**
+     * @brief Process any animation updates
+     * This is called periodically to update the animation state
+     */
+    virtual void process() = 0;
+
+    /**
+     * @brief Stops the animation, bringing it to an idle state.
+     * Tear down any resources that were allocated during the initialization.
+     */
+    virtual void stop() = 0;
+  };
+
+  DECLARE_ANIMATION_CLASS( IdleAnimation );
+
   /*---------------------------------------------------------------------------
   Private Functions
   ---------------------------------------------------------------------------*/
