@@ -1,3 +1,5 @@
+#include "animator.hpp"
+#include "buttons.hpp"
 #include "pico/stdlib.h"
 #include "ws2812.hpp"
 #include <cstring>
@@ -14,6 +16,9 @@ int main()
   Configure the PIO to drive the WS2812 LEDs
   ---------------------------------------------------------------------------*/
   LED::initialize();
+  Buttons::initialize();
+  Animator::initialize();
+
 
   uint32_t led_idx = 0;
   uint32_t color = 0;
@@ -43,5 +48,7 @@ int main()
     led_idx = ( led_idx + 1 ) % LED::count();
     LED::swapBuffers();
     sleep_ms( 75 );
+
+    Animator::process();
   }
 }

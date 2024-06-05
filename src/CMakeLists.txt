@@ -2,6 +2,7 @@ add_library(pio_ws2812 INTERFACE)
 pico_generate_pio_header(pio_ws2812 ${CMAKE_CURRENT_LIST_DIR}/ws2812.pio)
 
 add_executable(HollyJolly
+        animator.cpp
         buttons.cpp
         main.cpp
         ws2812.cpp
