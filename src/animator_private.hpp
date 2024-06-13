@@ -47,6 +47,7 @@ namespace Animator
   enum AnimationIndex : uint8_t
   {
     IDLE,
+    COLOR_BLOCKS,
     FADE,
     RAINBOW,
     COUNT
@@ -87,6 +88,7 @@ namespace Animator
   };
 
   DECLARE_ANIMATION_CLASS( IdleAnimation );
+  DECLARE_ANIMATION_CLASS( FullSweepColorBlock );
 
   /*---------------------------------------------------------------------------
   Private Functions

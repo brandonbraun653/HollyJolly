@@ -1,0 +1,4 @@
+# Copy this file to "/etc/udev/rules.d/60-rpipico.rules" and then run
+# "sudo udevadm control --reload-rules" to have it take effect.
+
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="2e8a", ATTRS{idProduct}=="000a", MODE="0777"

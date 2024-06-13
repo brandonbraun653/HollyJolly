@@ -34,8 +34,8 @@ namespace LED
 
   static constexpr uint FREQ_800KHZ     = 800'000;    // 800kHz data rate
   static constexpr uint PIO_SM          = 0;          // PIO state machine index
-  static constexpr uint WS2812_NUM_LEDS = 15;         // Number of LEDs in the string
-  static constexpr uint WS2812_DATA_PIN = 0;          // GPIO pin to drive the LEDs
+  static constexpr uint WS2812_NUM_LEDS = 32;         // Number of LEDs in the string
+  static constexpr uint WS2812_DATA_PIN = 23;         // GPIO pin to drive the LEDs
 
   /*---------------------------------------------------------------------------
   Variables

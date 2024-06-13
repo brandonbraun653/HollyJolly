@@ -23,8 +23,8 @@ namespace Animator
   Constants
   ---------------------------------------------------------------------------*/
 
-  static constexpr float MAX_BRIGHTNESS = 1.0f;
-  static constexpr float MIN_BRIGHTNESS = 0.0f;
+  static constexpr float MAX_BRIGHTNESS  = 1.0f;
+  static constexpr float MIN_BRIGHTNESS  = 0.0f;
   static constexpr float BRIGHTNESS_STEP = 0.1f;
 
   /*---------------------------------------------------------------------------
@@ -39,9 +39,9 @@ namespace Animator
   Static Function Declarations
   ---------------------------------------------------------------------------*/
   static IAnimation *get_current_animation();
-  static void scale_global_brightness();
-  static void isr_on_button_bright_press();
-  static void isr_on_button_action_press();
+  static void        scale_global_brightness();
+  static void        isr_on_button_bright_press();
+  static void        isr_on_button_action_press();
 
   /*---------------------------------------------------------------------------
   Public Functions
@@ -54,10 +54,11 @@ namespace Animator
 
     // Initialize all the animations
     s_current_animation = AnimationIndex::IDLE;
-    s_global_brightness = 0.1f;
+    s_global_brightness = 1.0f;
 
     memset( s_animations, 0, sizeof( IAnimation * ) * AnimationIndex::COUNT );
     s_animations[ AnimationIndex::IDLE ] = new IdleAnimation();
+    s_animations[ AnimationIndex::COLOR_BLOCKS ] = new FullSweepColorBlock();
 
     // Register the button callbacks last so that the animations are fully
     // initialized before they start receiving input.
@@ -134,9 +135,9 @@ namespace Animator
     {
       uint32_t color = p_render_buffer[ i ];
 
-      uint8_t blue   = ( color & 0x00FF0000 ) >> 16;
-      uint8_t red    = ( color & 0x0000FF00 ) >> 8;
-      uint8_t green  = ( color & 0x000000FF );
+      uint8_t blue  = ( color & 0x00FF0000 ) >> 16;
+      uint8_t red   = ( color & 0x0000FF00 ) >> 8;
+      uint8_t green = ( color & 0x000000FF );
 
       red   = static_cast<uint8_t>( red * brightness_copy );
       green = static_cast<uint8_t>( green * brightness_copy );
@@ -189,4 +190,4 @@ namespace Animator
     }
   }
 
-}  // namespace Animator
+}    // namespace Animator

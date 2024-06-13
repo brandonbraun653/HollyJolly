@@ -12,6 +12,7 @@
 Includes
 -----------------------------------------------------------------------------*/
 #include "animator_private.hpp"
+#include "pico/time.h"
 
 namespace Animator
 {
@@ -19,8 +20,9 @@ namespace Animator
   Static Data
   ---------------------------------------------------------------------------*/
 
-  static uint32_t led_idx = 0;
-  static uint32_t color   = 0;
+  static uint32_t        led_idx;
+  static uint32_t        color;
+  static absolute_time_t next_update;
 
   /*---------------------------------------------------------------------------
   Idle Animation Class
@@ -38,13 +40,21 @@ namespace Animator
 
   void IdleAnimation::initialize()
   {
-    led_idx = 0;
-    color   = 0;
+    led_idx     = 0;
+    color       = 0;
+    next_update = make_timeout_time_us( 100'000 );
   }
 
 
   void IdleAnimation::process()
   {
+    if( !time_reached( next_update ) )
+    {
+      return;
+    }
+
+    next_update = make_timeout_time_us( 100'000 );
+
     uint32_t *p_render_buffer = LED::getRenderBuffer();
     memset( p_render_buffer, 0, sizeof( uint32_t ) * LED::count() );
 

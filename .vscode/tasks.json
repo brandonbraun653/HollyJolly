@@ -1,0 +1,11 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Flash Latest Firmware",
+      "type": "shell",
+      "command": "sudo ${workspaceFolder}/bin/picotool load -f ${workspaceFolder}/build/src/HollyJolly.bin",
+      "problemMatcher": []
+    }
+  ]
+}
