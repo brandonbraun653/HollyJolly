@@ -19,6 +19,10 @@ endif()
 # Initialize the SDK
 pico_sdk_init()
 
+# Import the PicoDebug library
+set(CMSIS_SDK_PATH ${CMAKE_CURRENT_LIST_DIR}/lib/cmsis_5)
+add_subdirectory(lib/pico-debug)
+
 # Add main Folder
 add_subdirectory(src)
 

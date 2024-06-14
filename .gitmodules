@@ -13,3 +13,6 @@
 [submodule "lib/pico-debug"]
 	path = lib/pico-debug
 	url = https://github.com/brandonbraun653/pico-debug.git
+[submodule "lib/cmsis_5"]
+	path = lib/cmsis_5
+	url = https://github.com/ARM-software/CMSIS_5.git
