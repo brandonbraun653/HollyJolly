@@ -16,8 +16,7 @@ Includes
 
 namespace Animator
 {
-  static uint32_t        color;
-  static absolute_time_t next_update;
+  static uint32_t color;
 
   FullSweepColorBlock::FullSweepColorBlock()
   {
@@ -31,19 +30,19 @@ namespace Animator
 
   void FullSweepColorBlock::initialize()
   {
-    color       = 0;
-    next_update = make_timeout_time_us( 100'000 );
+    color         = 0;
+    m_next_update = make_timeout_time_us( 1'000'000 );
   }
 
 
   void FullSweepColorBlock::process()
   {
-    if( !time_reached( next_update ) )
+    if( !time_reached( m_next_update ) )
     {
       return;
     }
 
-    next_update = make_timeout_time_us( 100'000 );
+    m_next_update = make_timeout_time_us( 100'000 );
 
     uint32_t next_color = 0;
     switch( color )
@@ -63,7 +62,10 @@ namespace Animator
     }
 
     uint32_t *p_render_buffer = LED::getRenderBuffer();
-    memset( p_render_buffer, next_color, sizeof( uint32_t ) * LED::count() );
+    for( size_t i = 0; i < LED::count(); i++ )
+    {
+      p_render_buffer[ i ] = next_color;
+    }
   }
 
 
@@ -71,4 +73,4 @@ namespace Animator
   {
   }
 
-}  // namespace Animator
+}    // namespace Animator

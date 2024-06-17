@@ -21,6 +21,7 @@ static void core0_entry()
   while( 1 )
   {
     sleep_ms( FRAME_REFRESH_RATE_MS );
+    Buttons::process();
     Animator::process();
   }
 }

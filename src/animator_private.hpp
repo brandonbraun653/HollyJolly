@@ -15,9 +15,10 @@
 /*-----------------------------------------------------------------------------
 Includes
 -----------------------------------------------------------------------------*/
+#include "pico/time.h"
+#include "ws2812.hpp"
 #include <cstdint>
 #include <cstring>
-#include "ws2812.hpp"
 
 
 /*-----------------------------------------------------------------------------
@@ -28,14 +29,17 @@ Literals
  * @brief Helper macro to declare a basic animation class conforming to the IAnimation interface
  */
 #define DECLARE_ANIMATION_CLASS( name ) \
-  class name : public IAnimation \
-  { \
-  public: \
-    name(); \
-    ~name(); \
-    void initialize() final override; \
-    void process() final override; \
-    void stop() final override; \
+  class name : public IAnimation        \
+  {                                     \
+  public:                               \
+    name();                             \
+    ~name();                            \
+    void initialize() final override;   \
+    void process() final override;      \
+    void stop() final override;         \
+                                        \
+  protected:                            \
+    absolute_time_t m_next_update;      \
   }
 
 namespace Animator
@@ -93,11 +97,6 @@ namespace Animator
   /*---------------------------------------------------------------------------
   Private Functions
   ---------------------------------------------------------------------------*/
-
-  /**
-   * @brief Clear the LED string by turning all LEDs off
-   */
-  void clear();
 
   /**
    * @brief Set the master brightess of Holly Jolly

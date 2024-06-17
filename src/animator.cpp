@@ -31,7 +31,6 @@ namespace Animator
   Static Data
   ---------------------------------------------------------------------------*/
   static IAnimation        *s_animations[ AnimationIndex::COUNT ];
-  static critical_section_t s_critical_section;
   static volatile uint8_t   s_current_animation;
   static volatile float     s_global_brightness;
 
@@ -40,8 +39,8 @@ namespace Animator
   ---------------------------------------------------------------------------*/
   static IAnimation *get_current_animation();
   static void        scale_global_brightness();
-  static void        isr_on_button_bright_press();
-  static void        isr_on_button_action_press();
+  static void        on_button_bright_press();
+  static void        on_button_action_press();
 
   /*---------------------------------------------------------------------------
   Public Functions
@@ -49,27 +48,32 @@ namespace Animator
 
   void initialize()
   {
-    // Configure module memory
-    critical_section_init( &s_critical_section );
-
-    // Initialize all the animations
+    /*-------------------------------------------------------------------------
+    Initialize the static variables
+    -------------------------------------------------------------------------*/
+    memset( s_animations, 0, sizeof( IAnimation * ) * AnimationIndex::COUNT );
     s_current_animation = AnimationIndex::IDLE;
     s_global_brightness = 1.0f;
 
-    memset( s_animations, 0, sizeof( IAnimation * ) * AnimationIndex::COUNT );
-    s_animations[ AnimationIndex::IDLE ] = new IdleAnimation();
+    /*-------------------------------------------------------------------------
+    Bind the animations to their respective indexes
+    -------------------------------------------------------------------------*/
+    s_animations[ AnimationIndex::IDLE ]         = new IdleAnimation();
     s_animations[ AnimationIndex::COLOR_BLOCKS ] = new FullSweepColorBlock();
 
-    // Register the button callbacks last so that the animations are fully
-    // initialized before they start receiving input.
-    Buttons::onBrightKeyPress( isr_on_button_bright_press );
-    Buttons::onActionKeyPress( isr_on_button_action_press );
+    /*-------------------------------------------------------------------------
+    Register the button callbacks
+    -------------------------------------------------------------------------*/
+    Buttons::onBrightKeyPress( on_button_bright_press );
+    Buttons::onActionKeyPress( on_button_action_press );
   }
 
 
   void process()
   {
-    // Process the current animation. This will draw a new frame to the render buffer.
+    /*-------------------------------------------------------------------------
+    Process the current animation, drawing the next frame to the render buffer.
+    -------------------------------------------------------------------------*/
     IAnimation *current = get_current_animation();
     if( current != nullptr )
     {
@@ -77,17 +81,17 @@ namespace Animator
       scale_global_brightness();
     }
 
-    // Apply the frame to the LED string
+    /*-------------------------------------------------------------------------
+    Swap the render buffers to display the new frame.
+    -------------------------------------------------------------------------*/
     LED::swapBuffers();
   }
 
-  void clear()
-  {
-  }
 
   void setLedColor( const uint8_t index, const uint8_t red, const uint8_t green, const uint8_t blue )
   {
   }
+
 
   void setAllLedsColor( const uint8_t red, const uint8_t green, const uint8_t blue )
   {
@@ -108,15 +112,12 @@ namespace Animator
    */
   static IAnimation *get_current_animation()
   {
-    critical_section_enter_blocking( &s_critical_section );
-
     IAnimation *current = nullptr;
     if( s_current_animation < AnimationIndex::COUNT )
     {
       current = s_animations[ s_current_animation ];
     }
 
-    critical_section_exit( &s_critical_section );
     return current;
   }
 
@@ -126,11 +127,8 @@ namespace Animator
    */
   static void scale_global_brightness()
   {
-    // This is updated in an ISR context, so we need to make a copy
-    const float brightness_copy = s_global_brightness;
-
-    // Apply the brightness scaling to the current render buffer
     uint32_t *p_render_buffer = LED::getRenderBuffer();
+
     for( uint32_t i = 0; i < LED::count(); i++ )
     {
       uint32_t color = p_render_buffer[ i ];
@@ -139,9 +137,9 @@ namespace Animator
       uint8_t red   = ( color & 0x0000FF00 ) >> 8;
       uint8_t green = ( color & 0x000000FF );
 
-      red   = static_cast<uint8_t>( red * brightness_copy );
-      green = static_cast<uint8_t>( green * brightness_copy );
-      blue  = static_cast<uint8_t>( blue * brightness_copy );
+      red   = static_cast<uint8_t>( red * s_global_brightness );
+      green = static_cast<uint8_t>( green * s_global_brightness );
+      blue  = static_cast<uint8_t>( blue * s_global_brightness );
 
       p_render_buffer[ i ] = ( blue << 16 ) | ( red << 8 ) | green;
     }
@@ -151,7 +149,7 @@ namespace Animator
   /**
    * @brief Updates the global brightness of the LED string
    */
-  static void isr_on_button_bright_press()
+  static void on_button_bright_press()
   {
     s_global_brightness += BRIGHTNESS_STEP;
     if( s_global_brightness >= MAX_BRIGHTNESS )
@@ -164,30 +162,33 @@ namespace Animator
   /**
    * @brief Switches to the next animation in the list
    */
-  static void isr_on_button_action_press()
+  static void on_button_action_press()
   {
-    // Stop the old animation
+    /*-------------------------------------------------------------------------
+    Stop the current animation and clear the render buffer
+    -------------------------------------------------------------------------*/
     IAnimation *current = s_animations[ s_current_animation ];
     if( current != nullptr )
     {
       current->stop();
-      clear();
+      memset( LED::getRenderBuffer(), 0, LED::count() * sizeof( uint32_t ) );
       LED::swapBuffers();
     }
 
-    // Move to the next animation
+    /*-------------------------------------------------------------------------
+    Switch to the next animation in the list that isn't null
+    -------------------------------------------------------------------------*/
     s_current_animation++;
-    if( s_current_animation >= AnimationIndex::COUNT )
+    while( s_animations[ s_current_animation ] == nullptr )
     {
-      s_current_animation = AnimationIndex::IDLE;
+      s_current_animation++;
+      if( s_current_animation >= AnimationIndex::COUNT )
+      {
+        s_current_animation = AnimationIndex::IDLE;
+      }
     }
 
-    // Initialize the new animation
-    IAnimation *next = s_animations[ s_current_animation ];
-    if( next != nullptr )
-    {
-      next->initialize();
-    }
+    s_animations[ s_current_animation ]->initialize();
   }
 
 }    // namespace Animator

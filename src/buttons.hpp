@@ -35,6 +35,11 @@ namespace Buttons
   void initialize();
 
   /**
+   * @brief Periodic processing of button events
+   */
+  void process();
+
+  /**
    * @brief Registers a callback for when the brightness button is pressed
    *
    * @param callback  Function to call when the button is pressed
