@@ -7,7 +7,8 @@
 	"settings": {
 		"cortex-debug.openocdPath": "/usr/bin/openocd",
 		"files.associations": {
-			"stdlib.h": "c"
+			"stdlib.h": "c",
+			"string.h": "c"
 		},
 		"workbench.colorCustomizations": {
 			"activityBar.activeBackground": "#fa1b49",

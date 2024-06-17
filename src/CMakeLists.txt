@@ -14,10 +14,13 @@ add_executable(HollyJolly
 target_link_libraries(HollyJolly
         hardware_dma
         hardware_pio
+        pico_debug
         pico_multicore
         pico_stdio_usb
         pico_stdlib
         pio_ws2812
+        tinyusb_board
+        tinyusb_device
 )
 
 target_include_directories(HollyJolly PRIVATE ${CMAKE_CURRENT_LIST_DIR})
