@@ -35,7 +35,7 @@ Literals
     name();                             \
     ~name();                            \
     void initialize() final override;   \
-    void process() final override;      \
+    bool process() final override;      \
     void stop() final override;         \
                                         \
   protected:                            \
@@ -80,9 +80,10 @@ namespace Animator
 
     /**
      * @brief Process any animation updates
-     * This is called periodically to update the animation state
+     * This is called periodically to update the animation state.
+     * @return bool  True if a new frame was drawn, false otherwise
      */
-    virtual void process() = 0;
+    virtual bool process() = 0;
 
     /**
      * @brief Stops the animation, bringing it to an idle state.

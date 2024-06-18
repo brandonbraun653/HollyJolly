@@ -111,6 +111,14 @@ namespace LED
   }
 
 
+  void resetBuffers()
+  {
+    dma_channel_wait_for_finish_blocking( s_dma_channel );
+
+    memset( sp_render_buffer, 0, sizeof( uint32_t ) * WS2812_NUM_LEDS );
+    memset( sp_display_buffer, 0, sizeof( uint32_t ) * WS2812_NUM_LEDS );
+  }
+
   /*---------------------------------------------------------------------------
   Static Functions
   ---------------------------------------------------------------------------*/
@@ -211,5 +219,4 @@ namespace LED
   {
     dma_channel_acknowledge_irq0( s_dma_channel );
   }
-
 }    // namespace LED

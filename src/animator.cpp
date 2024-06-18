@@ -24,7 +24,7 @@ namespace Animator
   ---------------------------------------------------------------------------*/
 
   static constexpr float MAX_BRIGHTNESS  = 1.0f;
-  static constexpr float MIN_BRIGHTNESS  = 0.0f;
+  static constexpr float MIN_BRIGHTNESS  = 0.1f;
   static constexpr float BRIGHTNESS_STEP = 0.1f;
 
   /*---------------------------------------------------------------------------
@@ -71,20 +71,25 @@ namespace Animator
 
   void process()
   {
+    bool draw_frame = false;
+
     /*-------------------------------------------------------------------------
     Process the current animation, drawing the next frame to the render buffer.
     -------------------------------------------------------------------------*/
     IAnimation *current = get_current_animation();
     if( current != nullptr )
     {
-      current->process();
+      draw_frame = current->process();
       scale_global_brightness();
     }
 
     /*-------------------------------------------------------------------------
     Swap the render buffers to display the new frame.
     -------------------------------------------------------------------------*/
-    LED::swapBuffers();
+    if( draw_frame )
+    {
+      LED::swapBuffers();
+    }
   }
 
 
@@ -156,6 +161,12 @@ namespace Animator
     {
       s_global_brightness = MIN_BRIGHTNESS;
     }
+
+    /*-------------------------------------------------------------------------
+    Clear out the buffer data to ensure a clean transition to the new
+    brightness level.
+    -------------------------------------------------------------------------*/
+    LED::resetBuffers();
   }
 
 

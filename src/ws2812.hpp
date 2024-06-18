@@ -56,6 +56,11 @@ namespace LED
    */
   void swapBuffers();
 
+  /**
+   * @brief Resets both the render and display buffers to all zeros.
+   */
+  void resetBuffers();
+
 }    // namespace LED
 
 #endif /* !HOLLY_JOLLY_WS2812_HPP */

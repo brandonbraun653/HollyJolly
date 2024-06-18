@@ -41,18 +41,18 @@ namespace Animator
   {
     led_idx       = 0;
     color         = 0;
-    m_next_update = make_timeout_time_us( 100'000 );
+    m_next_update = delayed_by_ms( get_absolute_time(), 500 );
   }
 
 
-  void IdleAnimation::process()
+  bool IdleAnimation::process()
   {
-    if( !time_reached( m_next_update ) )
+    if( absolute_time_diff_us( get_absolute_time(), m_next_update ) > 0 )
     {
-      return;
+      return false;
     }
 
-    m_next_update = make_timeout_time_us( 100'000 );
+    m_next_update = delayed_by_ms( get_absolute_time(), 100 );
 
     uint32_t *p_render_buffer = LED::getRenderBuffer();
     memset( p_render_buffer, 0, sizeof( uint32_t ) * LED::count() );
@@ -74,6 +74,7 @@ namespace Animator
     }
 
     led_idx = ( led_idx + 1 ) % LED::count();
+    return true;
   }
 
 

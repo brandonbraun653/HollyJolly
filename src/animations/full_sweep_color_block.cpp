@@ -31,18 +31,18 @@ namespace Animator
   void FullSweepColorBlock::initialize()
   {
     color         = 0;
-    m_next_update = make_timeout_time_us( 1'000'000 );
+    m_next_update = delayed_by_ms( get_absolute_time(), 500 );
   }
 
 
-  void FullSweepColorBlock::process()
+  bool FullSweepColorBlock::process()
   {
-    if( !time_reached( m_next_update ) )
+    if( absolute_time_diff_us( get_absolute_time(), m_next_update ) > 0 )
     {
-      return;
+      return false;
     }
 
-    m_next_update = make_timeout_time_us( 100'000 );
+    m_next_update = delayed_by_ms( get_absolute_time(), 1000 );
 
     uint32_t next_color = 0;
     switch( color )
@@ -66,6 +66,8 @@ namespace Animator
     {
       p_render_buffer[ i ] = next_color;
     }
+
+    return true;
   }
 
 
