@@ -60,6 +60,7 @@ namespace Animator
     -------------------------------------------------------------------------*/
     s_animations[ AnimationIndex::IDLE ]         = new IdleAnimation();
     s_animations[ AnimationIndex::COLOR_BLOCKS ] = new FullSweepColorBlock();
+    s_animations[ AnimationIndex::TWINKLE ]      = new Twinkle();
 
     /*-------------------------------------------------------------------------
     Register the button callbacks
@@ -93,13 +94,17 @@ namespace Animator
   }
 
 
-  void setLedColor( const uint8_t index, const uint8_t red, const uint8_t green, const uint8_t blue )
+  void set_led_properties( uint32_t *const buffer, const uint32_t index, const uint32_t color, const float brightness )
   {
-  }
+    uint8_t blue  = ( color & 0x00FF0000 ) >> 16;
+    uint8_t red   = ( color & 0x0000FF00 ) >> 8;
+    uint8_t green = ( color & 0x000000FF );
 
+    red   = static_cast<uint8_t>( red * brightness );
+    green = static_cast<uint8_t>( green * brightness );
+    blue  = static_cast<uint8_t>( blue * brightness );
 
-  void setAllLedsColor( const uint8_t red, const uint8_t green, const uint8_t blue )
-  {
+    buffer[ index ] = ( blue << 16 ) | ( red << 8 ) | green;
   }
 
   /*---------------------------------------------------------------------------

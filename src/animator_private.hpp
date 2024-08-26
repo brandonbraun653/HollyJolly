@@ -52,6 +52,7 @@ namespace Animator
   {
     IDLE,
     COLOR_BLOCKS,
+    TWINKLE,
     FADE,
     RAINBOW,
     COUNT
@@ -92,38 +93,25 @@ namespace Animator
     virtual void stop() = 0;
   };
 
+  /* Make sure to add these animation classes to the initialize() method of animator.cpp */
   DECLARE_ANIMATION_CLASS( IdleAnimation );
   DECLARE_ANIMATION_CLASS( FullSweepColorBlock );
+  DECLARE_ANIMATION_CLASS( Twinkle );
 
   /*---------------------------------------------------------------------------
   Private Functions
   ---------------------------------------------------------------------------*/
 
   /**
-   * @brief Set the master brightess of Holly Jolly
+   * @brief Set the brightness of a specific LED in the string
    *
-   * @param brightness  Value between 0.0 and 1.0
+   * @param buffer Backing memory for the LED strip
+   * @param index Which LED to change
+   * @param color Color to set the LED to
+   * @param brightness Brightness level to set
    */
-  void setGlobalBrightness( const float brightness );
+  void set_led_properties( uint32_t *const buffer, const uint32_t index, const uint32_t color, const float brightness );
 
-  /**
-   * @brief Set the color of a specific LED in the string
-   *
-   * @param index    Index of the LED to change
-   * @param red      Red component of the color
-   * @param green    Green component of the color
-   * @param blue     Blue component of the color
-   */
-  void setLedColor( const uint8_t index, const uint8_t red, const uint8_t green, const uint8_t blue );
-
-  /**
-   * @brief Set the color of all LEDs in the string
-   *
-   * @param red      Red component of the color
-   * @param green    Green component of the color
-   * @param blue     Blue component of the color
-   */
-  void setAllLedsColor( const uint8_t red, const uint8_t green, const uint8_t blue );
 }  // namespace Animator
 
 #endif  /* !HOLLY_JOLLY_INTERNAL_ANIMATOR_HPP */
