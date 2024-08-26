@@ -7,3 +7,12 @@
 [submodule "hw/lib/KiCadLib"]
 	path = hw/lib/KiCadLib
 	url = https://github.com/brandonbraun653/KiCadLib.git
+[submodule "lib/picotool"]
+	path = lib/picotool
+	url = https://github.com/raspberrypi/picotool.git
+[submodule "lib/pico-debug"]
+	path = lib/pico-debug
+	url = https://github.com/brandonbraun653/pico-debug.git
+[submodule "lib/cmsis_5"]
+	path = lib/cmsis_5
+	url = https://github.com/ARM-software/CMSIS_5.git
