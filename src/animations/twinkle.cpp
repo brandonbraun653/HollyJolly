@@ -3,7 +3,9 @@
  *    twinkle.cpp
  *
  *  Description:
- *    Implementation of the Twinkle animation
+ *    Implementation of the Twinkle animation. This animation will randomly
+ *    select a few LEDs to turn on with a random color. The LEDs will remain on
+ *    for a short period of time before turning off and selecting new LEDs.
  *
  *  2024 | Brandon Braun | brandonbraun653@protonmail.com
  *****************************************************************************/

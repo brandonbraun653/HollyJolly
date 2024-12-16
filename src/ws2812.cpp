@@ -13,9 +13,7 @@ Includes
 -----------------------------------------------------------------------------*/
 #include "hardware/clocks.h"
 #include "hardware/dma.h"
-#include "hardware/gpio.h"
 #include "hardware/irq.h"
-#include "pico/stdlib.h"
 #include "ws2812.hpp"
 #include "ws2812.pio.h"
 #include <cstring>
@@ -34,7 +32,6 @@ namespace LED
 
   static constexpr uint FREQ_800KHZ     = 800'000;    // 800kHz data rate
   static constexpr uint PIO_SM          = 0;          // PIO state machine index
-  static constexpr uint WS2812_NUM_LEDS = 32;         // Number of LEDs in the string
   static constexpr uint WS2812_DATA_PIN = 23;         // GPIO pin to drive the LEDs
 
   /*---------------------------------------------------------------------------
@@ -82,15 +79,15 @@ namespace LED
   }
 
 
-  uint32_t count()
-  {
-    return WS2812_NUM_LEDS;
-  }
-
-
   uint32_t *getRenderBuffer()
   {
     return sp_render_buffer;
+  }
+
+
+  const uint32_t *getDisplayBuffer()
+  {
+    return sp_display_buffer;
   }
 
 

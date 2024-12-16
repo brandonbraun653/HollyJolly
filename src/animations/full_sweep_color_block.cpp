@@ -3,7 +3,7 @@
  *    full_sweep_color_block.cpp
  *
  *  Description:
- *    Alternates the color of the entire strip in a sweeping pattern
+ *    Alternates the color of the entire tree between red, green, and blue.
  *
  *  2024 | Brandon Braun | brandonbraun653@protonmail.com
  *****************************************************************************/

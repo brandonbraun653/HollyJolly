@@ -53,8 +53,7 @@ namespace Animator
     IDLE,
     COLOR_BLOCKS,
     TWINKLE,
-    FADE,
-    RAINBOW,
+    SOFT_GLOW,
     COUNT
   };
 
@@ -97,6 +96,7 @@ namespace Animator
   DECLARE_ANIMATION_CLASS( IdleAnimation );
   DECLARE_ANIMATION_CLASS( FullSweepColorBlock );
   DECLARE_ANIMATION_CLASS( Twinkle );
+  DECLARE_ANIMATION_CLASS( SoftGlow );
 
   /*---------------------------------------------------------------------------
   Private Functions

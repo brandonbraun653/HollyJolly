@@ -21,6 +21,16 @@ Includes
 namespace LED
 {
   /*---------------------------------------------------------------------------
+  Constants
+  ---------------------------------------------------------------------------*/
+
+  static constexpr uint32_t WS2812_NUM_LEDS  = 32;            // Number of LEDs in the string
+  static constexpr uint32_t WS2812_BLUE_MSK  = 0x00FF0000;    // Bitmask for the blue channel
+  static constexpr uint32_t WS2812_RED_MSK   = 0x0000FF00;    // Bitmask for the red channel
+  static constexpr uint32_t WS2812_GREEN_MSK = 0x000000FF;    // Bitmask for the green channel
+  static constexpr uint32_t WS2812_DATA_MSK  = 0x00FFFFFF;    // Bitmask for all color data
+
+  /*---------------------------------------------------------------------------
   Public Functions
   ---------------------------------------------------------------------------*/
 
@@ -33,9 +43,12 @@ namespace LED
 
   /**
    * @brief Total number of LEDs in the string
-   * @return uint32_t
+   * @return uint
    */
-  uint32_t count();
+  static constexpr uint32_t count()
+  {
+    return WS2812_NUM_LEDS;
+  }
 
   /**
    * @brief Get a pointer to the current render buffer
@@ -48,6 +61,14 @@ namespace LED
    * @return uint32_t*
    */
   uint32_t *getRenderBuffer();
+
+  /**
+   * @brief Get a read-only pointer to the current display buffer
+   *
+   * See getRenderBuffer() for more information on the buffer format.
+   * @return const uint32_t*
+   */
+  const uint32_t *getDisplayBuffer();
 
   /**
    * @brief Swap the render buffer with the display buffer.

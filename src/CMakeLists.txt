@@ -4,6 +4,7 @@ pico_generate_pio_header(pio_ws2812 ${CMAKE_CURRENT_LIST_DIR}/ws2812.pio)
 add_executable(HollyJolly
         animations/full_sweep_color_block.cpp
         animations/idle.cpp
+        animations/soft_glow.cpp
         animations/twinkle.cpp
         animator.cpp
         buttons.cpp

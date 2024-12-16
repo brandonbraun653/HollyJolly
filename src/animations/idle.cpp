@@ -3,7 +3,9 @@
  *    idle.cpp
  *
  *  Description:
- *    Implementation of the idle animation
+ *    Implementation of the idle animation, which iterates through each LED in
+ *    the strip one by one, changing the color of each LED to red, green, and
+ *    blue in sequence.
  *
  *  2024 | Brandon Braun | brandonbraun653@protonmail.com
  *****************************************************************************/

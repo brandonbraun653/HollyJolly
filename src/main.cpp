@@ -2,8 +2,6 @@
 #include "buttons.hpp"
 #include "holly_jolly_cfg.hpp"
 #include "pico/multicore.h"
-#include "pico/stdio_usb.h"
-#include "pico/stdlib.h"
 #include "pico_debug.h"
 #include "ws2812.hpp"
 #include <cstring>
