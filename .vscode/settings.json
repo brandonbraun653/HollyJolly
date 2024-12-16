@@ -17,10 +17,11 @@
         }
     },
     "cmake.buildBeforeRun": true,
-    "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
     "cortex-debug.openocdPath": "/usr/bin/openocd",
     "files.associations": {
         "stdlib.h": "c"
     },
-    "editor.tabSize": 2
+    "editor.tabSize": 2,
+    "clangd.path": "clangd",
+    "editor.semanticHighlighting.enabled": true,
 }

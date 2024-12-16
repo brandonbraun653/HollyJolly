@@ -31,6 +31,12 @@
 			"titleBar.inactiveForeground": "#e7e7e799"
 		},
 		"peacock.color": "#dd0531",
-		"editor.tabSize": 2
+		"editor.tabSize": 2,
+    "clangd.arguments": ["-log=verbose",
+                         "-pretty",
+                         "--background-index",
+                         // Must explicitly set compilers (set by dockerfile): https://github.com/clangd/clangd/issues/1654
+                         "--query-driver=/usr/bin/arm-none-eabi-gcc,/usr/bin/arm-none-eabi-g++", //for cross compile usage
+                         "--compile-commands-dir=${workspaceFolder}/build"],
 	}
 }

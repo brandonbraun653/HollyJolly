@@ -15,6 +15,7 @@ Includes
 #include "pico/time.h"
 #include "holly_jolly_cfg.hpp"
 #include <cstdlib>
+#include <cstring>
 
 namespace Animator
 {
